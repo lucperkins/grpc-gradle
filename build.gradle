@@ -1,0 +1,29 @@
+group 'org.lucperkins'
+version '0.1.0-SNAPSHOT'
+
+apply plugin: 'application'
+apply plugin: 'java'
+
+repositories {
+  jcenter()
+  mavenCentral()
+}
+
+dependencies {
+  testCompile 'junit:junit:4.12'
+
+  compile(
+    'com.squareup.dagger:dagger:1.2.2',
+    'com.squareup.dagger:dagger-compiler:1.2.2'
+  )
+}
+
+task main(type: CreateStartScripts) {
+  mainClassName = "org.lucperkins.minimal"
+}
+
+applicationDistribution.into("bin") {
+  from(main)
+
+  fileMode = 0755
+}
