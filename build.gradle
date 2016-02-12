@@ -9,9 +9,7 @@ repositories {
   mavenCentral()
 }
 
-mainClassName = 'org.lucperkins.liminal.Main'
-
-//startScripts.enabled = false
+startScripts.enabled = false
 
 dependencies {
   testCompile 'junit:junit:4.12'
@@ -23,18 +21,14 @@ dependencies {
   )
 }
 
-def defaultClassPath = jar.outputs.files + project.configurations.runtime
-def defaultOutputDir = new File(project.buildDir, 'tmp')
-
 task runMain(type: CreateStartScripts) {
   mainClassName = "org.lucperkins.liminal.Main"
   applicationName = "liminal"
-  classpath = defaultClassPath
-  outputDir = defaultOutputDir
+  classpath = jar.outputs.files + project.configurations.runtime
+  outputDir = new File(project.buildDir, 'tmp')
 }
 
 applicationDistribution.into("bin") {
   from(runMain)
-
   fileMode = 0755
 }
