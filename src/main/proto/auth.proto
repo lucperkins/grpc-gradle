@@ -11,7 +11,7 @@ message AuthRequest {
 
 message AuthResponse {
     bool authenticated = 1;
-    repeated string role = 2;
+    repeated string roles = 2;
 }
 
 service AuthService {
