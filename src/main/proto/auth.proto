@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.lucperkins.liminal.auth";
+option java_outer_classname = "AuthProto";
+
+message AuthRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message AuthResponse {
+    bool authenticated = 1;
+    repeated string role = 2;
+}
+
+service AuthService {
+    rpc authenticate (AuthRequest) returns (AuthResponse) {}
+}

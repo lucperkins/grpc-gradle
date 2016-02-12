@@ -1,4 +1,5 @@
 GRADLE=./gradlew
+DOCS_DIR=build/docs/javadoc
 
 build-main:
 	@${GRADLE} installApp
@@ -15,3 +16,7 @@ wrapper:
 
 test:
 	@${GRADLE} test
+
+docs:
+	@gradle javadoc
+	@open ${DOCS_DIR}/index.html

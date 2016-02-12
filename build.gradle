@@ -2,7 +2,20 @@ group 'org.lucperkins'
 version '0.1.0-SNAPSHOT'
 
 apply plugin: 'application'
+apply plugin: 'idea'
 apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
+
+buildscript {
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath 'com.google.protobuf:protobuf-gradle-plugin:0.7.4'
+  }
+}
 
 repositories {
   jcenter()
@@ -17,7 +30,8 @@ dependencies {
   compile(
     'com.squareup.dagger:dagger:1.2.2',
     'com.squareup.dagger:dagger-compiler:1.2.2',
-    'org.projectlombok:lombok:1.16.6'
+    'org.projectlombok:lombok:1.16.6',
+    'io.grpc:grpc-all:0.12.0'
   )
 }
 
@@ -32,3 +46,38 @@ applicationDistribution.into("bin") {
   from(runMain)
   fileMode = 0755
 }
+
+protobuf {
+  protoc {
+    artifact = 'com.google.protobuf:protoc:3.0.0-beta-2'
+  }
+
+  plugins {
+    grpc {
+      artifact = 'io.grpc:protoc-gen-grpc-java:0.9.0'
+    }
+  }
+
+  generatedFilesBaseDir = "$projectDir/src/generated"
+
+  generateProtoTasks {
+    all().each { task ->
+      task.plugins {
+        grpc {}
+      }
+    }
+
+    all()*.plugins {
+      grpc {}
+    }
+  }
+}
+
+idea {
+  module {
+    sourceDirs += file("${projectDir}/src/generated/main/java");
+    sourceDirs += file("${projectDir}/src/generated/main/grpc");
+  }
+}
+
+javadoc.excludes ['src/generated']
