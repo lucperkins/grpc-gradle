@@ -7,7 +7,17 @@ public class Main {
         Run(Env env) { this.env = env; }
 
         @Override public void run() {
-            System.out.println("Env: " + env.toString());
+            switch (env) {
+                case DEV:
+                    System.out.println(env);
+                    break;
+                case PROD:
+                    System.out.println(env);
+                    break;
+                default:
+                    System.out.println("SOMETHING WENT WRONG");
+                    break;
+            }
         }
     }
 

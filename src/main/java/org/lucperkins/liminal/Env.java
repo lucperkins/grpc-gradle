@@ -16,7 +16,7 @@ enum Env {
     }
 
     static Env fromArgs(String[] args) {
-        if (args == null) {
+        if (args == null || args.length == 0) {
             return DEV;
         } else {
             return fromString(args[0]);
