@@ -1,13 +1,18 @@
 package org.lucperkins.liminal;
 
 public class Main {
-    private static class Run implements Runnable {
+    static class Run implements Runnable {
+        final Env env;
+
+        Run(Env env) { this.env = env; }
+
         @Override public void run() {
-            System.out.println("Hello world");
+            System.out.println("Env: " + env.toString());
         }
     }
 
     public static void main(String[] args) {
-        new Run().run();
+        Env env = Env.fromArgs(args);
+        new Run(env).run();
     }
 }

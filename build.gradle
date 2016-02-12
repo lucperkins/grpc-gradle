@@ -9,21 +9,32 @@ repositories {
   mavenCentral()
 }
 
+mainClassName = 'org.lucperkins.liminal.Main'
+
+//startScripts.enabled = false
+
 dependencies {
   testCompile 'junit:junit:4.12'
 
   compile(
     'com.squareup.dagger:dagger:1.2.2',
-    'com.squareup.dagger:dagger-compiler:1.2.2'
+    'com.squareup.dagger:dagger-compiler:1.2.2',
+    'org.projectlombok:lombok:1.16.6'
   )
 }
 
-task main(type: CreateStartScripts) {
-  mainClassName = "org.lucperkins.minimal"
+def defaultClassPath = jar.outputs.files + project.configurations.runtime
+def defaultOutputDir = new File(project.buildDir, 'tmp')
+
+task runMain(type: CreateStartScripts) {
+  mainClassName = "org.lucperkins.liminal.Main"
+  applicationName = "liminal"
+  classpath = defaultClassPath
+  outputDir = defaultOutputDir
 }
 
 applicationDistribution.into("bin") {
-  from(main)
+  from(runMain)
 
   fileMode = 0755
 }
