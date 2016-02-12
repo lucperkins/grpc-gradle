@@ -2,7 +2,7 @@ GRADLE=./gradlew
 DOCS_DIR=build/docs/javadoc
 
 build-main:
-	@${GRADLE} installApp
+	@${GRADLE} installDist
 
 run-main:
 	@build/install/liminal/bin/liminal ${ARGS}

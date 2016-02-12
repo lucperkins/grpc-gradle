@@ -1,5 +1,6 @@
 group 'org.lucperkins'
 version '0.1.0-SNAPSHOT'
+description 'Data infrastructure for large organizations'
 
 apply plugin: 'application'
 apply plugin: 'idea'
@@ -35,11 +36,14 @@ dependencies {
   )
 }
 
+def defaultClasspath = jar.outputs.files + project.configurations.runtime
+def defaultOutputDir = file("${project.buildDir}/tmp")
+
 task runMain(type: CreateStartScripts) {
   mainClassName = "org.lucperkins.liminal.Main"
   applicationName = "liminal"
-  classpath = jar.outputs.files + project.configurations.runtime
-  outputDir = new File(project.buildDir, 'tmp')
+  classpath = defaultClasspath
+  outputDir = defaultOutputDir
 }
 
 applicationDistribution.into("bin") {
