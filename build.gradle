@@ -29,10 +29,14 @@ dependencies {
   testCompile 'junit:junit:4.12'
 
   compile(
+
     'com.squareup.dagger:dagger:1.2.2',
     'com.squareup.dagger:dagger-compiler:1.2.2',
     'org.projectlombok:lombok:1.16.6',
-    'io.grpc:grpc-all:0.12.0'
+    'io.grpc:grpc-all:0.12.0',
+
+    // Compile any stray jars
+    fileTree(dir: 'libs', include: ['*.jar'])
   )
 }
 
