@@ -1,0 +1,27 @@
+apply plugin: 'com.google.protobuf'
+
+protobuf {
+  protoc {
+    artifact = 'com.google.protobuf:protoc:3.0.0-beta-2'
+  }
+
+  plugins {
+    grpc {
+      artifact = 'io.grpc:protoc-gen-grpc-java:0.9.0'
+    }
+  }
+
+  generatedFilesBaseDir = "$projectDir/src/generated"
+
+  generateProtoTasks {
+    all().each { task ->
+      task.plugins {
+        grpc {}
+      }
+    }
+
+    all()*.plugins {
+      grpc {}
+    }
+  }
+}

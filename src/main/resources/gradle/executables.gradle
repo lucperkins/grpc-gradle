@@ -1,0 +1,26 @@
+apply plugin: 'application'
+
+startScripts.enabled = false
+
+def defaultClasspath = jar.outputs.files + project.configurations.runtime
+def defaultOutputDir = file("${project.buildDir}/tmp")
+
+task authClient(type: CreateStartScripts) {
+  mainClassName = "org.grpcgradle.auth.AuthClient"
+  applicationName = "auth-client"
+  classpath = defaultClasspath
+  outputDir = defaultOutputDir
+}
+
+task authServer(type: CreateStartScripts) {
+  mainClassName = "org.grpcgradle.auth.AuthServer"
+  applicationName = "auth-server"
+  classpath = defaultClasspath
+  outputDir = defaultOutputDir
+}
+
+applicationDistribution.into("bin") {
+  from(authClient)
+  from(authServer)
+  fileMode = 0755
+}

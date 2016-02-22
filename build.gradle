@@ -1,11 +1,11 @@
-group 'org.lucperkins'
+group 'org.gradlegrpc'
 version '0.1.0-SNAPSHOT'
-description 'Data infrastructure for large organizations'
 
 apply plugin: 'application'
 apply plugin: 'idea'
-apply plugin: 'java'
 apply plugin: 'com.google.protobuf'
+apply from: rootProject.file('src/main/resources/gradle/grpc.gradle')
+apply from: rootProject.file('src/main/resources/gradle/executables.gradle')
 
 buildscript {
   repositories {
@@ -23,62 +23,8 @@ repositories {
   mavenCentral()
 }
 
-startScripts.enabled = false
-
 dependencies {
-  testCompile 'junit:junit:4.12'
-
-  compile(
-
-    'com.squareup.dagger:dagger:1.2.2',
-    'com.squareup.dagger:dagger-compiler:1.2.2',
-    'org.projectlombok:lombok:1.16.6',
-    'io.grpc:grpc-all:0.12.0',
-
-    // Compile any stray jars
-    fileTree(dir: 'libs', include: ['*.jar'])
-  )
-}
-
-def defaultClasspath = jar.outputs.files + project.configurations.runtime
-def defaultOutputDir = file("${project.buildDir}/tmp")
-
-task runMain(type: CreateStartScripts) {
-  mainClassName = "org.lucperkins.liminal.Main"
-  applicationName = "liminal"
-  classpath = defaultClasspath
-  outputDir = defaultOutputDir
-}
-
-applicationDistribution.into("bin") {
-  from(runMain)
-  fileMode = 0755
-}
-
-protobuf {
-  protoc {
-    artifact = 'com.google.protobuf:protoc:3.0.0-beta-2'
-  }
-
-  plugins {
-    grpc {
-      artifact = 'io.grpc:protoc-gen-grpc-java:0.9.0'
-    }
-  }
-
-  generatedFilesBaseDir = "$projectDir/src/generated"
-
-  generateProtoTasks {
-    all().each { task ->
-      task.plugins {
-        grpc {}
-      }
-    }
-
-    all()*.plugins {
-      grpc {}
-    }
-  }
+  compile 'io.grpc:grpc-all:0.12.0'
 }
 
 idea {
