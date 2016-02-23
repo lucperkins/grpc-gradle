@@ -40,13 +40,18 @@ public class AuthClient {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        if (args.length < 2) {
+            System.err.println("You must provide a username and a password");
+        }
+
+        String username = args[0];
+        String password = args[1];
+
         System.out.println("Building client...");
         AuthClient client = new AuthClient();
         try {
-            String USERNAME = "tonydanza";
-            String PASSWORD = "whostheboss";
             System.out.println("Sending message...");
-            Optional<Boolean> response = client.authenticate(USERNAME, PASSWORD);
+            Optional<Boolean> response = client.authenticate(username, password);
             String message = (response.isPresent()) ? String.format("Response: %s", response.get()) : "Something went wrong";
             System.out.println(message);
         } finally {

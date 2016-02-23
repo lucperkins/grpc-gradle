@@ -10,17 +10,26 @@ Buffers](https://developers.google.com/protocol-buffers/) definition file in
 
 ## Using
 
+To build the client and server:
+
+```bash
+$ gradle installDist
+```
+
 To run the server:
 
 ```bash
-$ make run-auth-server
+$ build/install/grpc-gradle/bin/auth-server
 ```
 
-To run the client:
+To run the client you must specify a username and password as args 0 and 1:
 
 ```bash
-$ make run-auth-client
+$ build/install/grpc-gradle/bin/auth-client {username} {password}
 ```
+
+If you don't specify `tonydanza` as the username and `whostheboss` as the
+password your authenticate request will fail!
 
 ## What Lives Where
 
@@ -30,6 +39,11 @@ generated Java files in `src/generated/main/{grpc,java}`.
 The executables for the client and server are defined in
 `src/main/resources/executables.gradle`. The Gradle configuration for gRPC and
 Protocol Buffers are found in `src/main/resources/grpc.gradle`.
+
+# Versions
+
+I did all of this using Gradle 2.10.0 version 0.12.0 of the [Java gRPC
+library](http://search.maven.org/#artifactdetails%7Cio.grpc%7Cgrpc-all%7C0.13.0%7Cjar).
 
 ## What's the Purpose of This?
 

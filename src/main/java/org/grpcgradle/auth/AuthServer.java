@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 
 public class AuthServer {
-    private final int PORT = 8888;
+    private final static int PORT = 8888;
     private Server grpcServer;
 
     private void start() throws IOException {
@@ -38,7 +38,7 @@ public class AuthServer {
             String username = request.getUsername();
             String password = request.getPassword();
 
-            System.out.println(String.format("Request received:\nusername: %s\npassword: %s\n\n", username, password));
+            System.out.print(String.format("Request received:\nusername: %s\npassword: %s\n", username, password));
 
             boolean authenticated;
 
@@ -60,6 +60,7 @@ public class AuthServer {
         try {
             System.out.println("Starting server...");
             authServer.start();
+            System.out.println(String.format("The server is now running on port %s", PORT));
             authServer.blockUntilShutdown();
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
