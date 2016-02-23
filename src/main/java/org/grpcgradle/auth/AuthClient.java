@@ -40,14 +40,17 @@ public class AuthClient {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        System.out.println("Building client...");
         AuthClient client = new AuthClient();
         try {
             String USERNAME = "tonydanza";
             String PASSWORD = "whostheboss";
+            System.out.println("Sending message...");
             Optional<Boolean> response = client.authenticate(USERNAME, PASSWORD);
             String message = (response.isPresent()) ? String.format("Response: %s", response.get()) : "Something went wrong";
             System.out.println(message);
         } finally {
+            System.out.println("The client is shutting down");
             client.shutdown();
         }
     }

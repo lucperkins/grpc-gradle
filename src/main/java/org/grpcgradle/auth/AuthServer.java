@@ -35,10 +35,17 @@ public class AuthServer {
     private class AuthServerImpl implements AuthServiceGrpc.AuthService {
         @Override
         public void authenticate(AuthRequest request, StreamObserver<AuthResponse> responseObserver) {
+            String username = request.getUsername();
+            String password = request.getPassword();
+
+            System.out.println(String.format("Request received:\nusername: %s\npassword: %s\n\n", username, password));
+
             boolean authenticated;
 
             authenticated =
-                    (request.getUsername().equals("tonydanza") && request.getPassword().equals("whostheboss"));
+                    (username.equals("tonydanza") && password.equals("whostheboss"));
+
+            System.out.println(String.format("authenticated: %s", authenticated));
 
             AuthResponse response = AuthResponse.newBuilder()
                     .setAuthenticated(authenticated)
@@ -51,6 +58,7 @@ public class AuthServer {
     public static void main(String[] args) {
         final AuthServer authServer = new AuthServer();
         try {
+            System.out.println("Starting server...");
             authServer.start();
             authServer.blockUntilShutdown();
         } catch (InterruptedException | IOException e) {
