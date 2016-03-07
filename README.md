@@ -1,6 +1,6 @@
 # grpc-gradle
 
-This is basic project template for people wanting to use the
+This is a basic project template for people wanting to use the
 [Gradle](http://gradle.org/) build tool with Google's
 [gRPC](http://www.grpc.io/) framework.
 
