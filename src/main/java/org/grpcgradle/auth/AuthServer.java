@@ -38,6 +38,7 @@ public class AuthServer {
             String username = request.getUsername();
             String password = request.getPassword();
 
+            System.out.println("---------------------------------------------");
             System.out.print(String.format("Request received:\nusername: %s\npassword: %s\n", username, password));
 
             boolean authenticated;
