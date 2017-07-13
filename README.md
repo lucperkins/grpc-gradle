@@ -13,7 +13,7 @@ Buffers](https://developers.google.com/protocol-buffers/) definition file in
 To build the client and server:
 
 ```bash
-$ gradle installDist
+$ ./gradlew installDist
 ```
 
 To run the server:
