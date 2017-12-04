@@ -8,7 +8,7 @@ apply from: rootProject.file('src/main/resources/gradle/grpc.gradle')
 apply from: rootProject.file('src/main/resources/gradle/executables.gradle')
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.10.0'
+  gradleVersion = '2.10.0'
 }
 
 buildscript {
